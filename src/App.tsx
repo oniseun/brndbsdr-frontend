@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import {Component} from "react";
 import Header from './layout/Header'
 import ProductPage from "./pages/ProductPage"
 import {Spinner, Container} from "react-bootstrap"
