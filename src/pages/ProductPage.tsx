@@ -1,6 +1,6 @@
 import {useState} from "react";
-import Product from './Product'
-import ProductDetailModal from "./ProductDetailModal";
+import Product from '../components/Product'
+import ProductDetailModal from "../components/ProductDetailModal";
 
 function ProductPage (props: any){
 

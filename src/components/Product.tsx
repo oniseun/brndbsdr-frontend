@@ -1,24 +1,10 @@
 
-import {Component} from 'react'
 import {Media, Button} from 'react-bootstrap'
 
-interface ProductProps {
-  name: string;
-  photos: Array<string>;
-  id: string;
-  price: Number;
-  currency: string
-  onClickHandler: any
-}
 
-interface ProductState {
-}
-
-class Product extends Component<ProductProps, ProductState> { 
+export default function Product(props: any) { 
     
-  render(): object {
-  
-    const { name, photos, id, price, currency, onClickHandler } = this.props;
+  const { name, photos, id, price, currency, onClickHandler } = props;
 
   return (
       <>
@@ -42,6 +28,3 @@ class Product extends Component<ProductProps, ProductState> {
     </>
   );
 }
-}
-
-export default Product
