@@ -3,24 +3,31 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## SET The api endpoint in the .env.local or .env variable or your task/container definition
+``` bash
+# REACT_APP_API_ENDPOINT=http://localhost:2020
+$ export REACT_APP_API_ENDPOINT=http://localhost:2020
 
-REACT_APP_API_ENDPOINT=http://localhost:2020
+```
 ## Available Scripts
 
 In the project directory, you can run:
 
 ### `Docker run locally`
-- Build the image Locally
+``` bash
+# Build the image Locally
 $ docker build -t  brndbsdr-frontend  -f Dockerfile .
-- Run the image locally
+# Run the image locally
 $ docker run -dp 3000:3000 brndbsdr-frontend 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-Backend server will be listening on http://localhost:2020
-
+# Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Backend server will be listening on http://localhost:2020
+```
 ### `Docker run in production`
-- ensure to set the **REACT_APP_API_ENDPOINT** to the backend server endpoint in your environment variable
-- Build the image 
+``` bash
+# ensure to set the **REACT_APP_API_ENDPOINT** to the backend server endpoint in your environment variable
+#  Build the image 
 $ docker build -t  brndbsdr-frontend-prod  -f Dockerfile.prod .
+
+```
 ### `yarn start`
 
 Runs the app in the development mode.\
