@@ -1,19 +1,16 @@
-import React from 'react';
 import { expect } from 'chai';
 import { shallow} from 'enzyme';
-import Product from '../../src/components/Product';
-import ProductDetailModal from '../../src/components/ProductDetailModal';
 import ProductPage from '../../src/pages/ProductPage'
   describe('<ProductPage />', () => {
 
-    const component =<ProductPage products={[{}, {}]} /> 
+    const component =<ProductPage products={[{id: 1}, { id:2}]} /> 
 
     it('renders Product, ProductDetailModal, ul, h1', () => {
       const wrapper = shallow(component);
-      expect(wrapper.contains(<Product />)).toEqual(true);
-      expect(wrapper.contains(<ProductDetailModal/>)).toEqual(true);
-      expect(wrapper.contains('<ul/>')).toEqual(true);
-      expect(wrapper.contains('<h1 />')).toEqual(true);
+      expect(wrapper.find('Product')).to.have.lengthOf(2);
+      expect(wrapper.find('ProductDetailModal')).to.have.lengthOf(1);
+      expect(wrapper.find('ul')).to.have.lengthOf(1);
+      expect(wrapper.find('h1')).to.have.lengthOf(1);
     });
    
   });

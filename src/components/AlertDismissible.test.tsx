@@ -1,28 +1,21 @@
-
-
-import React from 'react';
 import { expect } from 'chai';
-import { shallow, mount, render } from 'enzyme';
+import { mount, render } from 'enzyme';
 import AlertDismissible from './AlertDismissible'
 
   describe('<AlertDismissbile />', () => {
     const component = <AlertDismissible showAlert={true} message="Hi!"/>
-    it('allows us to get and set props', () => {
+    it('mounts to get and set props', () => {
       const wrapper = mount(component);
-      expect(wrapper.props().showAlert).toEqual(true);
-      expect(wrapper.props().message).toEqual("Hi!");
+      expect(wrapper.props().showAlert).to.equal(true);
+      expect(wrapper.props().message).to.equal("Hi!");
       wrapper.setProps({ showAlert: false });
-      expect(wrapper.props().showAlert).toEqual(false);
+      expect(wrapper.props().showAlert).to.equal(false);
     });
     
-    it('displays a message', () => {
+    it('displays a message and has close button', () => {
       const wrapper = render(component);
-      expect(wrapper.text()).toContain('Hi!');
-    });
-
-    it('renders 1 button', () => {
-      const wrapper = shallow(component);
-      expect(wrapper.find("<button>")).to.have.lengthOf(1);
+      expect(wrapper.text()).to.contain('Hi!');
+      expect(wrapper.find("button.close")).to.have.lengthOf(1);
     });
    
   });

@@ -1,4 +1,3 @@
-import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount} from 'enzyme';
 import CountrySelection from '../../src/components/CountrySelection';
@@ -7,16 +6,15 @@ import CountrySelection from '../../src/components/CountrySelection';
     const component =<CountrySelection  countryName="Nigeria" countryCode="NG" currency="NGN" onClickHandler={()=>{}} /> 
     it('allows us to get and set props', () => {
       const wrapper = mount(component);
-      expect(wrapper.props().countryName).toEqual("Nigeria");
-      expect(wrapper.props().countryCode).toEqual("NG");
-      expect(wrapper.props().currency).toEqual("NGN");
+      expect(wrapper.props().countryName).to.equal("Nigeria");
+      expect(wrapper.props().countryCode).to.equal("NG");
+      expect(wrapper.props().currency).to.equal("NGN");
     });
 
-    it('renders option, img and label', () => {
+    it('renders option and img', () => {
       const wrapper = shallow(component);
-      expect(wrapper.contains('<option />')).toEqual(true);
-      expect(wrapper.contains('<img />')).toEqual(true);
-      expect(wrapper.contains('<label />')).toEqual(true);
+      expect(wrapper.find('option')).to.have.lengthOf(192);
+      expect(wrapper.find('img')).to.have.lengthOf(1);
     });
    
   });

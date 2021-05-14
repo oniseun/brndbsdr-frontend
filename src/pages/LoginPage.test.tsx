@@ -1,21 +1,23 @@
 
-import React from 'react';
 import { expect } from 'chai';
-import { shallow} from 'enzyme';
-import { Button, Col, Form } from "react-bootstrap";
+import { shallow, render} from 'enzyme';
 import LoginPage from './LoginPage'
   describe('<LoginPage />', () => {
 
     const component =<LoginPage loginHandler={() => {}} /> 
 
-    it('renders input, form row, form group, form control, col, button', () => {
-      const wrapper = shallow(component);
-      expect(wrapper.contains('<input />')).toEqual(true);
-      expect(wrapper.contains(<Form.Row/>)).toEqual(true);
-      expect(wrapper.contains(<Form.Group/>)).toEqual(true);
-      expect(wrapper.contains(<Form.Control/>)).toEqual(true);
-      expect(wrapper.contains(<Col/>)).toEqual(true);
-      expect(wrapper.contains(<Button/>)).toEqual(true);
+    it('renders Form Col Button', () => {
+      const wrapper = shallow(component );
+      expect(wrapper.find('Form')).to.have.lengthOf(1);
+      expect(wrapper.find('Col')).to.have.lengthOf(1);
+      expect(wrapper.find('Button')).to.have.lengthOf(1)
+    });
+
+    it('renders .form-row, form-group, input', () => {
+      const wrapper = render(component );
+      expect(wrapper.find('.form-row')).to.have.lengthOf(1);
+      expect(wrapper.find('.form-group')).to.have.lengthOf(2);
+      expect(wrapper.find('input')).to.have.lengthOf(2);
     });
    
   });
