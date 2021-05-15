@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import { Button, Col, Form } from "react-bootstrap";
 import AlertDismissible from '../components/AlertDismissible'
 function LoginPage (props: any){
@@ -15,7 +15,6 @@ function LoginPage (props: any){
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('values:', values, 'e:', e)
     if (![values.firstname.length, values.lastname.length].includes(0)) {
         loginHandler(values.firstname, values.lastname)
     } else {

@@ -4,6 +4,16 @@ import ProductPage from "./pages/ProductPage"
 import {Spinner, Container} from "react-bootstrap"
 import LoginPage from "./pages/LoginPage";
 import AlertDismissible from "./components/AlertDismissible";
+import GET_PRODUCTS from "./queries/getProducts"
+import GET_RATES from "./queries/getRates"
+import GET_LOCATION from "./queries/getLocation";
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+const clone = require('lodash/cloneDeep');
+const client = new ApolloClient({
+  uri:  `${process.env.REACT_APP_API_ENDPOINT}/graphql`,
+  cache: new InMemoryCache()
+});
+
 type AppProps = {  };
 
 type AppState = { 
@@ -127,27 +137,25 @@ class App extends Component<AppProps, AppState>{
 
   async fetchData() {
 
-    const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
-    const productsEndpoint = `${API_ENDPOINT}/products`
-    const locationEndpoint = `${API_ENDPOINT}/location/details`
-    const currencyRatesEndpoint = `${API_ENDPOINT}/currency/rates`
- 
-    const PromiseArray = [productsEndpoint, locationEndpoint, currencyRatesEndpoint].map(endpoint => {
-      return fetch(endpoint, {
-        method: "GET",
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "text/plain"
-        },
-    }).then(response => {
-        return response.json()
+      const PromiseArray = [GET_LOCATION, GET_PRODUCTS, GET_RATES].map(async endpoint => {  
+        const response = await client.query({ query: endpoint })
+        const clonedObj = clone(response.data)
+        return clonedObj
+
     });
-    } )
+
     try {
-      const [products, locationDetails, currencyRates] = await Promise.all(PromiseArray)
-      console.log('products:', products, 'locationDetails:', locationDetails, 'currencyRates:', currencyRates)
-      const {country_name: countryName, country_code: countryCode, currency} = locationDetails
-      this.setState({ products, locationDetails, currencyRates, countryName, countryCode, currency});
+      const [location,products,  rates] = await Promise.all(PromiseArray)
+      console.log('products:', products, 'locationDetails:', location, 'currencyRates:', rates)
+      const { country_name: countryName, country_code: countryCode, currency } = location.getLocationByIp
+      this.setState({ 
+        products : products.getProducts, 
+        locationDetails: location.getLocationByIp, 
+        currencyRates: rates.getRates, 
+        countryName, 
+        countryCode, 
+        currency
+      });
 
     } catch (e) {
       console.log('fetch error =>' , e)
